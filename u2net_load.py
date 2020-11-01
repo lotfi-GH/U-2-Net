@@ -6,7 +6,6 @@ from model import U2NETP # small version u2net 4.7 MB
 
 def model(model_name='u2net'):
 
-    model_name='u2net'#u2netp
 
     model_dir = os.path.join(os.getcwd(), 'saved_models', model_name, model_name + '.pth')
 

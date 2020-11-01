@@ -13,11 +13,14 @@ from u2net_test import normPRED
 import numpy as np
 from PIL import Image
 import glob
+import warnings
 
 from data_loader import RescaleT
 from data_loader import ToTensor
 from data_loader import ToTensorLab
 from data_loader import SalObjDataset
+
+warnings.filterwarnings("ignore")
 
 def save_images(image_name,pred,d_dir):
     predict = pred

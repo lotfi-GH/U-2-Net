@@ -36,7 +36,7 @@ def save_images(image_name,pred,d_dir):
     imidx = bbb[0]
     for i in range(1,len(bbb)):
         imidx = imidx + "." + bbb[i]
-    print('Saving output at {}'.format(os.path.join(d_dir, imidx+'.png')))
+    print('Saving output at {}'.format(os.path.join(d_dir, imidx+'.jpg')))
     imo.save(os.path.join(d_dir, imidx+'.png'))
 
 def infer(

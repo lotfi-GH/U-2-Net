@@ -30,7 +30,7 @@ def save_images(image_name,pred,d_dir):
     im = Image.fromarray(predict_np*255).convert('RGB')
     img_name = image_name.split(os.sep)[-1]
     image = io.imread(image_name)
-    imo = im.resize((image.shape[1],image.shape[0]),resample=Image.BILINEAR)
+    imo = im.resize((image.shape[1],image.shape[0]),resample=Image.BICUBIC)
 
     pb_np = np.array(imo)
 
@@ -39,8 +39,8 @@ def save_images(image_name,pred,d_dir):
     imidx = bbb[0]
     for i in range(1,len(bbb)):
         imidx = imidx + "." + bbb[i]
-    print('Saving output at {}'.format(os.path.join(d_dir, imidx+'.jpg')))
-    imo.save(os.path.join(d_dir, imidx+'.jpg'))
+    print('Saving output at {}'.format(os.path.join(d_dir, imidx+'.png')))
+    imo.save(os.path.join(d_dir, imidx+'.png'))
 
 def infer(
     net,

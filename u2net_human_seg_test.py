@@ -19,7 +19,6 @@ from data_loader import ToTensorLab
 from data_loader import SalObjDataset
 
 from model import U2NET # full size version 173.6 MB
-from model import U2NETP # small version u2net 4.7 MB
 
 # normalize the predicted SOD probability map
 def normPRED(d):
@@ -39,7 +38,7 @@ def save_output(image_name,pred,d_dir):
     im = Image.fromarray(predict_np*255).convert('RGB')
     img_name = image_name.split(os.sep)[-1]
     image = io.imread(image_name)
-    imo = im.resize((image.shape[1],image.shape[0]),resample=Image.BICUBIC)
+    imo = im.resize((image.shape[1],image.shape[0]),resample=Image.BILINEAR)
 
     pb_np = np.array(imo)
 
@@ -54,13 +53,12 @@ def save_output(image_name,pred,d_dir):
 def main():
 
     # --------- 1. get image path and name ---------
-    model_name='u2net'#u2netp
+    model_name='u2net'
 
 
-
-    image_dir = os.path.join(os.getcwd(), 'test_data', 'test_images')
-    prediction_dir = os.path.join(os.getcwd(), 'test_data', model_name + '_results' + os.sep)
-    model_dir = os.path.join(os.getcwd(), 'saved_models', model_name, model_name + '.pth')
+    image_dir = os.path.join(os.getcwd(), 'test_data', 'test_human_images')
+    prediction_dir = os.path.join(os.getcwd(), 'test_data', 'test_human_images' + '_results' + os.sep)
+    model_dir = os.path.join(os.getcwd(), 'saved_models', model_name+'_human_seg', model_name + '_human_seg.pth')
 
     img_name_list = glob.glob(image_dir + os.sep + '*')
     print(img_name_list)
@@ -81,9 +79,6 @@ def main():
     if(model_name=='u2net'):
         print("...load U2NET---173.6 MB")
         net = U2NET(3,1)
-    elif(model_name=='u2netp'):
-        print("...load U2NEP---4.7 MB")
-        net = U2NETP(3,1)
 
     if torch.cuda.is_available():
         net.load_state_dict(torch.load(model_dir))
